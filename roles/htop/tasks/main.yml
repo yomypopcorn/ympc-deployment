@@ -1,0 +1,8 @@
+- name: install package
+  apt: name=htop state=present
+
+- name: assure config directory exists
+  file: path=/root/.config/htop state=directory
+
+- name: configuration
+  copy: src=htoprc dest=/root/.config/htop/htoprc

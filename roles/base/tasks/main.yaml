@@ -1,0 +1,12 @@
+- name: ensure rsync is installed
+  apt: name=rsync state=present
+
+- name: ensure vim is installed
+  apt: name=rsync state=present
+
+- name: install keys for {{ item }}
+  authorized_key: user=root key=https://github.com/{{item}}.keys
+  with_items: ADMINS
+
+- name: "deploy systemd unit"
+  template: src=yo.service.j2 dest=/etc/systemd/system/yo.service

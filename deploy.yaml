@@ -1,0 +1,22 @@
+- name: host setup
+  hosts: yo1
+
+  vars:
+    YO_PORT: '80'
+    INSTALL_PATH: /root/yo-service/
+    ADMINS:
+      - manufaktor
+      - maxkueng
+      - manuelstofer
+      - teuteberg
+      - MathisB
+
+  roles:
+    - nodesource.node
+    - sshd
+    - htop
+    - base
+    - deploy
+
+
+

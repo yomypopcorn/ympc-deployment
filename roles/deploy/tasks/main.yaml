@@ -1,0 +1,8 @@
+    - name: upload
+      synchronize: mode=push src=app/ delete=yes dest={{ INSTALL_PATH }}
+
+    - name: install dependencies
+      npm: path={{ INSTALL_PATH }} state=present
+
+    - name: restart yo.service
+      service: name=yo state=restarted enabled=yes
