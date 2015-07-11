@@ -4,6 +4,12 @@
 - name: ensure vim is installed
   apt: name=rsync state=present
 
+- name: ensure redis-server is installed
+  apt: name=redis-server state=present
+
+- name: ensure redis-tools is installed
+  apt: name=redis-tools state=present
+
 - name: install keys for {{ item }}
   authorized_key: user=root key=https://github.com/{{item}}.keys
   with_items: ADMINS
