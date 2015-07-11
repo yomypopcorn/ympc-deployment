@@ -1,3 +1,6 @@
 [submodule "app"]
 	path = app
 	url = git@github.com:yomypopcorn/yo-service.git
+[submodule "scanner"]
+	path = scanner
+	url = git@github.com:yomypopcorn/yomypopcorn-scanner.git
