@@ -10,9 +10,18 @@
 - name: ensure redis-tools is installed
   apt: name=redis-tools state=present
 
+- name: ensure make is installed
+  apt: name=make state=present
+
+- name: ensure g++ is installed
+  apt: name=g++ state=present
+
 - name: install keys for {{ item }}
   authorized_key: user=root key=https://github.com/{{item}}.keys
   with_items: ADMINS
 
-- name: "deploy systemd unit"
+- name: "deploy systemd for yo-service"
   template: src=yo.service.j2 dest=/etc/systemd/system/yo.service
+
+- name: "deploy systemd unit for yomypopcorn-scanner"
+  template: src=yomypopcorn-scanner.service.j2 dest=/etc/systemd/system/yomypopcorn-scanner.service

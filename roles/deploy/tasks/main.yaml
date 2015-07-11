@@ -1,8 +1,25 @@
-    - name: upload
-      synchronize: mode=push src=app/ delete=yes dest={{ INSTALL_PATH }}
 
-    - name: install dependencies
-      npm: path={{ INSTALL_PATH }} state=present
+- name: assure config directory exists
+  file: path={{ INSTALL_PATH }} state=directory
 
-    - name: restart yo.service
-      service: name=yo state=restarted enabled=yes
+# deploy yo-service
+- name: upload yo-service
+  synchronize: mode=push src=app/ delete=yes dest={{ INSTALL_PATH }}/yo-service
+
+- name: install app dependencies
+  npm: path={{ INSTALL_PATH }}/yo-service state=present
+
+- name: restart yo.service
+  service: name=yo state=restarted enabled=yes
+
+
+# deploy yomypopcorn-scanner
+- name: upload scanner
+  synchronize: mode=push src=scanner/ delete=yes dest={{ INSTALL_PATH }}/scanner
+
+- name: install scanner dependencies
+  npm: path={{ INSTALL_PATH }}/scanner state=present
+
+- name: restart yomypopcorn-scanner.service
+  service: name=yomypopcorn-scanner state=restarted enabled=yes
+

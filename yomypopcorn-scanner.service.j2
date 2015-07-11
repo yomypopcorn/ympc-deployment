@@ -1,0 +1,6 @@
+[Unit]
+Description=yomypopcorn-scanner
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/node {{ INSTALL_PATH }}/scanner/server.js
