@@ -25,3 +25,6 @@
 
 - name: "deploy systemd unit for yomypopcorn-scanner"
   template: src=yomypopcorn-scanner.service.j2 dest=/etc/systemd/system/yomypopcorn-scanner.service
+
+- name: "config for scanner"
+  template: src=yomypopcorn-scannerrc.j2 dest=/etc/yomypopcorn-scannerrc
