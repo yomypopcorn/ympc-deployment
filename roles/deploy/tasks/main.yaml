@@ -4,7 +4,7 @@
 
 # deploy landingpage
 - name: upload landingpage
-  synchronize: mode=push src=landingpage/ delete=yes dest={{ INSTALL_PATH }}/landingpage
+  synchronize: mode=push src=landingpage/ delete=yes dest=/var/www/landingpage
 
 - name: landingpage nginx config
   template:
