@@ -4,6 +4,9 @@
 - name: ensure vim is installed
   apt: name=rsync state=present
 
+- name: ensure git is installed
+  apt: name=git state=present
+
 - name: ensure redis-server is installed
   apt: name=redis-server state=present
 
@@ -28,3 +31,6 @@
 
 - name: "config for scanner"
   template: src=yomypopcorn-scannerrc.j2 dest=/etc/yomypopcorn-scannerrc
+
+- name: "config for service"
+  template: src=yomypopcorn-servicerc.j2 dest=/etc/yomypopcorn-servicerc
