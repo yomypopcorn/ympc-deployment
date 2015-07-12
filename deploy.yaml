@@ -2,7 +2,7 @@
   hosts: yo1
 
   vars:
-    YO_PORT: '80'
+    YO_PORT: 9987
     INSTALL_PATH: /root/yomypopcorn
     ADMINS:
       - manufaktor
