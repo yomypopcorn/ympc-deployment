@@ -2,7 +2,7 @@
   apt: name=rsync state=present
 
 - name: ensure vim is installed
-  apt: name=rsync state=present
+  apt: name=vim state=present
 
 - name: ensure git is installed
   apt: name=git state=present
