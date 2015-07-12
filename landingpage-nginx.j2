@@ -1,0 +1,14 @@
+server {
+  listen       80;
+  server_name  yomypopcorn.com;
+
+  location / {
+    root {{ INSTALL_PATH }}/landingpage;
+  }
+}
+
+server {
+  listen       80;
+  server_name  www.yomypopcorn.com;
+  return       301 http://yomypopcorn.com$request_uri;
+}

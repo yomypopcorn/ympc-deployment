@@ -2,6 +2,23 @@
 - name: assure config directory exists
   file: path={{ INSTALL_PATH }} state=directory
 
+# deploy landingpage
+- name: upload landingpage
+  synchronize: mode=push src=landingpage/ delete=yes dest={{ INSTALL_PATH }}/landingpage
+
+- name: landingpage nginx config
+  template:
+    src=landingpage-nginx.j2
+    dest=/etc/nginx/sites-available/landingpage
+
+- name: enable landingpage nginx
+  file:
+    src=/etc/nginx/sites-available/landingpage
+    dest=/etc/nginx/sites-enabled/landingpage
+    state=link
+  notify:
+    - reload nginx
+
 # deploy yo-service
 - name: upload yo-service
   synchronize: mode=push src=app/ delete=yes dest={{ INSTALL_PATH }}/yo-service
@@ -11,6 +28,19 @@
 
 - name: restart yo.service
   service: name=yo state=restarted enabled=yes
+
+- name: yo-service nginx config
+  template:
+    src=yo-service-nginx.j2
+    dest=/etc/nginx/sites-available/yo-service
+
+- name: enable landingpage nginx
+  file:
+    src=/etc/nginx/sites-available/yo-service
+    dest=/etc/nginx/sites-enabled/yo-service
+    state=link
+  notify:
+    - reload nginx
 
 
 # deploy yomypopcorn-scanner
