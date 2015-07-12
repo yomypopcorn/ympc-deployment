@@ -34,3 +34,7 @@
 
 - name: "config for service"
   template: src=yomypopcorn-servicerc.j2 dest=/etc/yomypopcorn-servicerc
+
+# @ todo: use notify
+- name: systemd reload-daemon
+  command: systemctl daemon-reload
