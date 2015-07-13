@@ -3,8 +3,8 @@
   file: path={{ INSTALL_PATH }} state=directory
 
 # deploy landingpage
-- name: upload landingpage
-  synchronize: mode=push src=landingpage/ delete=yes dest=/var/www/landingpage
+- name: git landingpage
+  git: repo=git@github.com:yomypopcorn/landingpage.git update=yes dest=/var/www/landingpage
 
 - name: landingpage nginx config
   template:
@@ -19,9 +19,10 @@
   notify:
     - reload nginx
 
+
 # deploy yo-service
-- name: upload yo-service
-  synchronize: mode=push src=app/ delete=yes dest={{ INSTALL_PATH }}/yo-service
+- name: git yo-service
+  git: repo=git@github.com:yomypopcorn/yo-service.git update=yes dest={{ INSTALL_PATH }}/yo-service
 
 - name: install app dependencies
   npm: path={{ INSTALL_PATH }}/yo-service state=present
@@ -44,8 +45,8 @@
 
 
 # deploy yomypopcorn-scanner
-- name: upload scanner
-  synchronize: mode=push src=scanner/ delete=yes dest={{ INSTALL_PATH }}/scanner
+- name: git yomypopcorn-scanner
+  git: repo=git@github.com:yomypopcorn/yomypopcorn-scanner.git update=yes dest={{ INSTALL_PATH }}/scanner
 
 - name: install scanner dependencies
   npm: path={{ INSTALL_PATH }}/scanner state=present
