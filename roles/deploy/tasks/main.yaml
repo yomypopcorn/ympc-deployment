@@ -4,7 +4,7 @@
 
 # deploy landingpage
 - name: git landingpage
-  git: repo=git@github.com:yomypopcorn/landingpage.git update=yes dest=/var/www/landingpage
+  git: repo=https://github.com/yomypopcorn/landingpage.git update=yes dest=/var/www/landingpage
 
 - name: landingpage nginx config
   template:
@@ -22,7 +22,7 @@
 
 # deploy yo-service
 - name: git yo-service
-  git: repo=git@github.com:yomypopcorn/yo-service.git update=yes dest={{ INSTALL_PATH }}/yo-service
+  git: repo=https://github.com/yomypopcorn/yo-service.git update=yes dest={{ INSTALL_PATH }}/yo-service
 
 - name: install app dependencies
   npm: path={{ INSTALL_PATH }}/yo-service state=present
@@ -46,7 +46,7 @@
 
 # deploy yomypopcorn-scanner
 - name: git yomypopcorn-scanner
-  git: repo=git@github.com:yomypopcorn/yomypopcorn-scanner.git update=yes dest={{ INSTALL_PATH }}/scanner
+  git: repo=https://github.com/yomypopcorn/yomypopcorn-scanner.git update=yes dest={{ INSTALL_PATH }}/scanner
 
 - name: install scanner dependencies
   npm: path={{ INSTALL_PATH }}/scanner state=present
