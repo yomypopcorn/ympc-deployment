@@ -3,4 +3,4 @@ Description=yomypopcorn-scanner
 
 [Service]
 Restart=always
-ExecStart=/usr/bin/node {{ INSTALL_PATH }}/scanner/bin/cli.js --debug
+ExecStart={{ INSTALL_PATH }}/scanner/bin/cli.js --debug
