@@ -1,0 +1,26 @@
+---
+- name: install packages
+  apt: name={{ item }} state=present
+  with_items:
+    - vim
+    - vim-common
+    - python
+
+- name: create .vimrc
+  template:
+    src=vimrc.j2
+    dest=~/.vimrc
+
+- name: create .vimbackups directory
+  file: dest=~/.vimbackups state=directory
+
+- name: create .vim directory
+  file: dest={{ item }} state=directory
+  with_items: [ '~/.vim/autoload', '~/.vim/colors', '~/.vim/doc', '~/.vim/plugin', '~/.vim/syntax' ]
+
+- name: install molokai color scheme
+  get_url:
+    url=https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
+    dest=~/.vim/colors/molokai.vim
+
+- include: editorconfig.yml

@@ -1,0 +1,20 @@
+---
+- name: make sure install path exists
+  file: path={{ LANDINGPAGE_INSTALL_PATH }} state=directory
+
+- name: git landingpage
+  git: repo=https://github.com/yomypopcorn/landingpage.git
+       update=yes
+       dest={{ LANDINGPAGE_INSTALL_PATH }}
+       accept_hostkey=yes
+
+- name: deploy nginx config
+  template: src=landingpage.nginx.j2 dest=/etc/nginx/sites-available/landingpage
+
+- name: enable nginx config
+  file:
+    src=/etc/nginx/sites-available/landingpage
+    dest=/etc/nginx/sites-enabled/landingpage
+    state=link
+  notify:
+    - reload nginx

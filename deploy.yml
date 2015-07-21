@@ -1,0 +1,28 @@
+---
+- name: host setup
+  hosts: yo1
+
+  vars:
+    YO_SERVICE_PORT: 9987
+    YO_SERVICE_INSTALL_PATH: /root/yomypopcorn/yo-service
+
+    YO_SCANNER_INSTALL_PATH: /root/yomypopcorn/yo-scanner
+
+    LANDINGPAGE_INSTALL_PATH: /var/www/landingpage
+
+    ADMINS:
+      - manufaktor
+      - maxkueng
+      - manuelstofer
+      - teuteberg
+      - MathisB
+
+  roles:
+    - sshd
+    - authorized-keys
+    - htop
+    - base
+    - vim
+    - yo-service
+    - yo-scanner
+    - landingpage

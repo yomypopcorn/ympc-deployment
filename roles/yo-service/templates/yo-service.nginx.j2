@@ -3,6 +3,6 @@ server {
   server_name  app.yomypopcorn.com;
 
   location / {
-    proxy_pass http://localhost:{{YO_PORT}};
+    proxy_pass http://localhost:{{YO_SERVICE_PORT}};
   }
 }

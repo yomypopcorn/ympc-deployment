@@ -1,0 +1,34 @@
+---
+- name: make sure install path exists
+  file: path={{ YO_SERVICE_INSTALL_PATH }} state=directory
+
+- name: git yo-service
+  git: repo=https://github.com/yomypopcorn/yo-service.git 
+       update=yes
+       dest={{ YO_SERVICE_INSTALL_PATH }}
+       accept_hostkey=yes
+
+- name: install dependencies
+  npm: path={{ YO_SERVICE_INSTALL_PATH }} state=present
+
+- name: deploy config file
+  template: src=yo-service.config.j2 dest=/etc/yomypopcorn-servicerc
+
+- name: deploy systemd unit
+  template: src=yo-service.systemd.j2 dest=/etc/systemd/system/yo-service.service
+  notify:
+    - reload systemd
+
+- name: deploy nginx config
+  template: src=yo-service.nginx.j2 dest=/etc/nginx/sites-available/yo-service
+
+- name: enable nginx config
+  file:
+    src=/etc/nginx/sites-available/yo-service
+    dest=/etc/nginx/sites-enabled/yo-service
+    state=link
+  notify:
+    - reload nginx
+
+- name: restart yo-service.service
+  service: name=yo-service state=restarted enabled=yes

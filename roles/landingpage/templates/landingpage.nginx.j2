@@ -3,7 +3,7 @@ server {
   server_name  yomypopcorn.com;
 
   location / {
-    root /var/www/landingpage;
+    root {{ LANDINGPAGE_INSTALL_PATH }};
   }
 }
 

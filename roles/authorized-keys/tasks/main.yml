@@ -1,0 +1,4 @@
+---
+- name: install keys for {{ item }}
+  authorized_key: user=root key=https://github.com/{{item}}.keys
+  with_items: ADMINS
