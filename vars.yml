@@ -14,19 +14,19 @@ APP_SERVICE_NAME: yo-service
 APP_SERVER_NAME: app.yomypopcorn.com
 APP_URL: "http://{{ APP_SERVER_NAME }}"
 APP_PORT: 9987
-APP_INSTALL_PATH: "{{ BASE_INSTALL_PATH }}/yo-service"
+APP_INSTALL_PATH: "{{ BASE_INSTALL_PATH }}/app"
 APP_GIT_REPO: https://github.com/yomypopcorn/yo-service.git 
 APP_GIT_VERSION: master
 
 # scanner
 SCANNER_SERVICE_NAME: yo-scanner
-SCANNER_INSTALL_PATH: "{{ BASE_INSTALL_PATH }}/yo-scanner"
+SCANNER_INSTALL_PATH: "{{ BASE_INSTALL_PATH }}/scanner"
 SCANNER_GIT_REPO: https://github.com/yomypopcorn/yomypopcorn-scanner.git
 SCANNER_GIT_VERSION: master
 
 # landingpage
 LANDINGPAGE_SERVICE_NAME: landingpage
 LANDINGPAGE_SERVER_NAME: yomypopcorn.com
-LANDINGPAGE_INSTALL_PATH: /var/www/landingpage
+LANDINGPAGE_INSTALL_PATH: /var/www/ympc-landingpage
 LANDINGPAGE_GIT_REPO: https://github.com/yomypopcorn/landingpage.git
 LANDINGPAGE_GIT_VERSION: master
