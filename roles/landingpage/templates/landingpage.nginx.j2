@@ -1,6 +1,6 @@
 server {
   listen       80;
-  server_name  yomypopcorn.com;
+  server_name  {{ LANDINGPAGE_SERVER_NAME }};
 
   location / {
     root {{ LANDINGPAGE_INSTALL_PATH }};
@@ -9,6 +9,6 @@ server {
 
 server {
   listen       80;
-  server_name  www.yomypopcorn.com;
+  server_name  www.{{ LANDINGPAGE_SERVER_NAME }};
   return       301 http://yomypopcorn.com$request_uri;
 }

@@ -2,7 +2,7 @@
 Description=Yo Service
 
 [Service]
-Environment="YO_PORT={{YO_SERVICE_PORT}}"
+Environment="YO_PORT={{APP_PORT}}"
 Environment="YO_APIKEY={{YO_APIKEY}}"
 Restart=always
-ExecStart=/usr/bin/node {{ YO_SERVICE_INSTALL_PATH }}/server.js
+ExecStart=/usr/bin/node {{ APP_INSTALL_PATH }}/server.js

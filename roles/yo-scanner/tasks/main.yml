@@ -1,23 +1,24 @@
 ---
 - name: make sure install path exists
-  file: path={{ YO_SCANNER_INSTALL_PATH }} state=directory
+  file: path={{ SCANNER_INSTALL_PATH }} state=directory
 
-- name: git yo-scanner
-  git: repo=https://github.com/yomypopcorn/yomypopcorn-scanner.git
+- name: update git repo
+  git: repo={{ SCANNER_GIT_REPO }}
+       version={{ SCANNER_GIT_VERSION }}
        update=yes
-       dest={{ YO_SCANNER_INSTALL_PATH }}
+       dest={{ SCANNER_INSTALL_PATH }}
        accept_hostkey=yes
 
 - name: install dependencies
-  npm: path={{ YO_SCANNER_INSTALL_PATH }} state=present
+  npm: path={{ SCANNER_INSTALL_PATH }} state=present
 
 - name: deploy config file
   template: src=yo-scanner.config.j2 dest=/etc/yomypopcorn-scannerrc
 
 - name: deploy systemd unit
-  template: src=yo-scanner.systemd.j2 dest=/etc/systemd/system/yo-scanner.service
+  template: src=yo-scanner.systemd.j2 dest=/etc/systemd/system/{{ SCANNER_SERVICE_NAME }}.service
   notify:
     - reload systemd
 
-- name: restart yo-scanner.service
-  service: name=yo-scanner state=restarted enabled=yes
+- name: restart service
+  service: name={{ SCANNER_SERVICE_NAME }} state=restarted enabled=yes
