@@ -1,0 +1,18 @@
+---
+# app
+YO_SERVICE_PORT: 9987
+YO_SERVICE_INSTALL_PATH: /root/yomypopcorn/yo-service
+
+# scanner
+YO_SCANNER_INSTALL_PATH: /root/yomypopcorn/yo-scanner
+
+# landingpage
+LANDINGPAGE_INSTALL_PATH: /var/www/landingpage
+
+# general
+ADMINS:
+  - manufaktor
+  - maxkueng
+  - manuelstofer
+  - teuteberg
+  - MathisB
