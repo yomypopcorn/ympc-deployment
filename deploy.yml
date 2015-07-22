@@ -12,6 +12,6 @@
     - htop
     - base
     - vim
-    - yo-service
-    - yo-scanner
-    - landingpage
+    - ympc-app
+    - ympc-scanner
+    - ympc-landingpage

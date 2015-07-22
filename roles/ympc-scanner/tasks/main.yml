@@ -13,10 +13,10 @@
   npm: path={{ SCANNER_INSTALL_PATH }} state=present
 
 - name: deploy config file
-  template: src=yo-scanner.config.j2 dest=/etc/yomypopcorn-scannerrc
+  template: src=config.j2 dest=/etc/yomypopcorn-scannerrc
 
 - name: deploy systemd unit
-  template: src=yo-scanner.systemd.j2 dest=/etc/systemd/system/{{ SCANNER_SERVICE_NAME }}.service
+  template: src=systemd-unit.j2 dest=/etc/systemd/system/{{ SCANNER_SERVICE_NAME }}.service
   notify:
     - reload systemd
 

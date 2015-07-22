@@ -10,7 +10,7 @@
        accept_hostkey=yes
 
 - name: deploy nginx config
-  template: src=landingpage.nginx.j2 dest=/etc/nginx/sites-available/{{ LANDINGPAGE_SERVICE_NAME }}
+  template: src=nginx-vhost.j2 dest=/etc/nginx/sites-available/{{ LANDINGPAGE_SERVICE_NAME }}
 
 - name: enable nginx config
   file:

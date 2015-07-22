@@ -13,15 +13,15 @@
   npm: path={{ APP_INSTALL_PATH }} state=present
 
 - name: deploy config file
-  template: src=yo-service.config.j2 dest=/etc/yomypopcorn-servicerc
+  template: src=config.j2 dest=/etc/yomypopcorn-servicerc
 
 - name: deploy systemd unit
-  template: src=yo-service.systemd.j2 dest=/etc/systemd/system/{{ APP_SERVICE_NAME }}.service
+  template: src=systemd-unit.j2 dest=/etc/systemd/system/{{ APP_SERVICE_NAME }}.service
   notify:
     - reload systemd
 
 - name: deploy nginx config
-  template: src=yo-service.nginx.j2 dest=/etc/nginx/sites-available/{{ APP_SERVICE_NAME }}
+  template: src=nginx-vhost.j2 dest=/etc/nginx/sites-available/{{ APP_SERVICE_NAME }}
 
 - name: enable nginx config
   file:
