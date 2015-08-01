@@ -1,0 +1,19 @@
+---
+- name: host setup
+  hosts: yo1
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: update apt cache
+      apt: update_cache=yes
+  roles:
+    - timezone
+    - sshd
+    - authorized-keys
+    - htop
+    - base
+    - vim
+    - bistre
+    - ympc-app
+    - ympc-scanner
+    - ympc-landingpage

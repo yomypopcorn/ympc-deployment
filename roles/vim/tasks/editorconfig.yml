@@ -1,0 +1,11 @@
+---
+- name: editorconfig | download plugin
+  get_url:
+    url=https://github.com/editorconfig/editorconfig-vim/archive/v0.3.2.tar.gz
+    dest=/tmp/editorconfig-vim-v0.3.2.tar.gz
+
+- name: editorconfig | unpack
+  command: tar -xzf editorconfig-vim-v0.3.2.tar.gz chdir=/tmp creates=/tmp/editorconfig-vim-v0.3.2
+
+- name: editorconfig | install
+  shell: cp -r autoload/* ~/.vim/autoload/ && cp -r doc/* ~/.vim/doc/ && cp -r plugin/* ~/.vim/plugin/ chdir=/tmp/editorconfig-vim-0.3.2

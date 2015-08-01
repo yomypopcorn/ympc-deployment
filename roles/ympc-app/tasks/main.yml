@@ -1,0 +1,39 @@
+---
+- name: make sure install path exists
+  file: path={{ APP_INSTALL_PATH }} state=directory
+
+- name: update git repo
+  git: repo={{ APP_GIT_REPO }}
+       version={{ APP_GIT_VERSION }}
+       update=yes
+       dest={{ APP_INSTALL_PATH }}
+       accept_hostkey=yes
+
+- name: install dependencies
+  npm: path={{ APP_INSTALL_PATH }} state=present
+  register: npminstall
+  until: npminstall|success
+  retries: 5
+  delay: 2
+
+- name: deploy config file
+  template: src=config.j2 dest=/etc/yomypopcorn-servicerc
+
+- name: deploy systemd unit
+  template: src=systemd-unit.j2 dest=/etc/systemd/system/{{ APP_SERVICE_NAME }}.service
+  notify:
+    - reload systemd
+
+- name: deploy nginx config
+  template: src=nginx-vhost.j2 dest=/etc/nginx/sites-available/{{ APP_SERVICE_NAME }}
+
+- name: enable nginx config
+  file:
+    src=/etc/nginx/sites-available/{{ APP_SERVICE_NAME }}
+    dest=/etc/nginx/sites-enabled/{{APP_SERVICE_NAME}}
+    state=link
+  notify:
+    - reload nginx
+
+- name: restart service
+  service: name={{ APP_SERVICE_NAME }} state=restarted enabled=yes

@@ -1,0 +1,21 @@
+---
+- name: make sure install path exists
+  file: path={{ LANDINGPAGE_INSTALL_PATH }} state=directory
+
+- name: git landingpage
+  git: repo={{ LANDINGPAGE_GIT_REPO }}
+       version={{ LANDINGPAGE_GIT_VERSION }}
+       update=yes
+       dest={{ LANDINGPAGE_INSTALL_PATH }}
+       accept_hostkey=yes
+
+- name: deploy nginx config
+  template: src=nginx-vhost.j2 dest=/etc/nginx/sites-available/{{ LANDINGPAGE_SERVICE_NAME }}
+
+- name: enable nginx config
+  file:
+    src=/etc/nginx/sites-available/{{ LANDINGPAGE_SERVICE_NAME }}
+    dest=/etc/nginx/sites-enabled/{{ LANDINGPAGE_SERVICE_NAME }}
+    state=link
+  notify:
+    - reload nginx

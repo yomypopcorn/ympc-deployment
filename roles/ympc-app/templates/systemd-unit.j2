@@ -1,0 +1,8 @@
+[Unit]
+Description=Yo Service
+
+[Service]
+Environment="YO_PORT={{APP_PORT}}"
+Environment="YO_APIKEY={{YO_APIKEY}}"
+Restart=always
+ExecStart=/usr/bin/node {{ APP_INSTALL_PATH }}/server.js

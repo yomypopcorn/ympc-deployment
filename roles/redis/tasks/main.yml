@@ -1,0 +1,11 @@
+---
+- name: install packages
+  apt: name={{ item }} state=present
+  with_items:
+    - redis-server
+    - redis-tools
+
+- name: patch redis.conf set appendonly=yes
+  lineinfile: dest=/etc/redis/redis.conf regexp="^appendonly" line="appendonly yes"
+  notify:
+    - restart redis

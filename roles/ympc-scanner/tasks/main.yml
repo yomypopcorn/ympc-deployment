@@ -1,0 +1,28 @@
+---
+- name: make sure install path exists
+  file: path={{ SCANNER_INSTALL_PATH }} state=directory
+
+- name: update git repo
+  git: repo={{ SCANNER_GIT_REPO }}
+       version={{ SCANNER_GIT_VERSION }}
+       update=yes
+       dest={{ SCANNER_INSTALL_PATH }}
+       accept_hostkey=yes
+
+- name: install dependencies
+  npm: path={{ SCANNER_INSTALL_PATH }} state=present
+  register: npminstall
+  until: npminstall|success
+  retries: 5
+  delay: 2
+
+- name: deploy config file
+  template: src=config.j2 dest=/etc/yomypopcorn-scannerrc
+
+- name: deploy systemd unit
+  template: src=systemd-unit.j2 dest=/etc/systemd/system/{{ SCANNER_SERVICE_NAME }}.service
+  notify:
+    - reload systemd
+
+- name: restart service
+  service: name={{ SCANNER_SERVICE_NAME }} state=restarted enabled=yes
