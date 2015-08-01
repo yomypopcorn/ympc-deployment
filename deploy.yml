@@ -12,6 +12,7 @@
     - htop
     - base
     - vim
+    - bistre
     - ympc-app
     - ympc-scanner
     - ympc-landingpage
