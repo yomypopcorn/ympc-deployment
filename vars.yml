@@ -1,5 +1,7 @@
 ---
 # general
+TIME_ZONE: UTC
+
 ADMINS:
   - manufaktor
   - maxkueng
