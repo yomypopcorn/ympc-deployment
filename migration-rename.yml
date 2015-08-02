@@ -1,5 +1,5 @@
 ---
-- name: migration 1
+- name: migration rename
   hosts: yo1
   vars_files:
     - vars.yml
