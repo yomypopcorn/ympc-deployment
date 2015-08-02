@@ -1,0 +1,217 @@
+---
+- name: migration 1
+  hosts: yo1
+  vars_files:
+    - vars.yml
+  tasks:
+    # app
+
+    ## systemd
+
+    - name: app | stop service
+      service: name=yo state=stopped
+
+    - name: app | disable service
+      service: name=yo enabled=no
+
+    - name: app | stat systemd unit file
+      stat: path=/etc/systemd/system/yo.service
+      register: app_old_systemd_stat
+
+    - name: app | move systemd unit file
+      command: mv /etc/systemd/system/yo.service /etc/systemd/system/{{ APP_SERVICE_NAME }}.service
+      when: app_old_systemd_stat.stat.exists
+
+    - name: app | update unit file
+      lineinfile: dest=/etc/systemd/system/{{ APP_SERVICE_NAME }}.service regexp="^ExecStart" line="ExecStart=/usr/bin/node {{ APP_INSTALL_PATH }}/server.js"
+
+    - name: app | reload systemd
+      command: systemctl daemon-reload
+
+    ## install path
+
+    - name: app | stat install path
+      stat: path=/root/yomypopcorn/yo-service
+      register: app_old_installpath_stat
+
+    - name: app | move install path
+      command: mv /root/yomypopcorn/yo-service {{ APP_INSTALL_PATH }}
+      when: app_old_installpath_stat.stat.exists
+
+    ## config file
+
+    - name: app | stat config file
+      stat: path=/etc/yomypopcorn-servicerc
+      register: app_old_configfile_stat
+
+    - name: app | move config file
+      command: mv /etc/yomypopcorn-servicerc {{ APP_CONFIG_PATH }}
+      when: app_old_configfile_stat.stat.exists
+
+    ## update repository
+
+    - name: app | update git origin
+      command: git remote set-url origin {{ APP_GIT_REPO }}
+               chdir={{ APP_INSTALL_PATH }}
+
+    - name: app | update git repo
+      git: repo={{ APP_GIT_REPO }}
+           version={{ APP_GIT_VERSION }}
+           update=yes
+           dest={{ APP_INSTALL_PATH }}
+           accept_hostkey=yes
+
+    - name: app | install dependencies
+      npm: path={{ APP_INSTALL_PATH }} state=present
+      register: app_npminstall
+      until: app_npminstall|success
+      retries: 5
+      delay: 2
+
+    ## nginx
+
+    - name: app | disable old nginx config
+      file: path=/etc/nginx/sites-enabled/yo state=absent
+
+    - name: app | stat nginx config
+      stat: path=/etc/nginx/sites-available/yo
+      register: app_old_nginx_stat
+
+    - name: app | move nginx config
+      command: mv /etc/nginx/sites-available/yo /etc/nginx/sites-available/{{ APP_SERVICE_NAME }}
+      when: app_old_nginx_stat.stat.exists
+
+    - name: app | enable new nginx config
+      file:
+        src=/etc/nginx/sites-available/{{ APP_SERVICE_NAME }}
+        dest=/etc/nginx/sites-enabled/{{ APP_SERVICE_NAME }}
+        state=link
+
+    - name: app | reload nginx
+      service: name=nginx state=restarted enabled=yes
+
+    ## systemd
+
+    - name: app | start and enable service
+      service: name={{ APP_SERVICE_NAME }} state=started enabled=yes
+
+
+    # scanner
+
+    ## systemd
+
+    - name: scanner | stop service
+      service: name=yomypopcorn-scanner state=stopped
+
+    - name: scanner | disable service
+      service: name=yomypopcorn-scanner enabled=no
+
+    - name: scanner | stat systemd unit file
+      stat: path=/etc/systemd/system/yomypopcorn-scanner.service
+      register: scanner_old_systemd_stat
+
+    - name: scanner | move systemd unit file
+      command: mv /etc/systemd/system/yomypopcorn-scanner.service /etc/systemd/system/{{ SCANNER_SERVICE_NAME }}.service
+      when: scanner_old_systemd_stat.stat.exists
+
+    - name: scanner | update unit file
+      lineinfile: dest=/etc/systemd/system/{{ SCANNER_SERVICE_NAME }}.service regexp="^ExecStart" line="ExecStart={{ SCANNER_INSTALL_PATH }}/bin/cli.js --debug"
+
+    - name: scanner | reload systemd
+      command: systemctl daemon-reload
+
+    ## install path
+
+    - name: scanner | stat install path
+      stat: path=/root/yomypopcorn/scanner
+      register: scanner_old_installpath_stat
+
+    - name: scanner | move install path
+      command: mv /root/yomypopcorn/scanner {{ SCANNER_INSTALL_PATH }}
+      when: scanner_old_installpath_stat.stat.exists
+
+    ## config file
+
+    - name: scanner | stat config file
+      stat: path=/etc/yomypopcorn-scannerrc
+      register: scanner_old_configfile_stat
+
+    - name: scanner | move config file
+      command: mv /etc/yomypopcorn-scannerrc {{ SCANNER_CONFIG_PATH }}
+      when: scanner_old_configfile_stat.stat.exists
+
+    ## update repository
+
+    - name: scanner | update git origin
+      command: git remote set-url origin {{ SCANNER_GIT_REPO }}
+               chdir={{ SCANNER_INSTALL_PATH }}
+
+    - name: scanner | update git repo
+      git: repo={{ SCANNER_GIT_REPO }}
+           version={{ SCANNER_GIT_VERSION }}
+           update=yes
+           dest={{ SCANNER_INSTALL_PATH }}
+           accept_hostkey=yes
+
+    - name: scanner | install dependencies
+      npm: path={{ SCANNER_INSTALL_PATH }} state=present
+      register: scanner_npminstall
+      until: scanner_npminstall|success
+      retries: 5
+      delay: 2
+
+    ## systemd
+
+    - name: scanner | start and enable service
+      service: name={{ SCANNER_SERVICE_NAME }} state=started enabled=yes
+
+
+    # landingpage
+
+    ## install path
+
+    - name: landingpage | stat install path
+      stat: path=/var/www/landingpage
+      register: landingpage_old_installpath_stat
+
+    - name: landigpage | move install path
+      command: mv /var/www/landingpage {{ LANDINGPAGE_INSTALL_PATH }}
+      when: landingpage_old_installpath_stat.stat.exists
+
+    ## update repository
+
+    - name: landingpage | update git origin
+      command: git remote set-url origin {{ LANDINGPAGE_GIT_REPO }}
+               chdir={{ LANDINGPAGE_INSTALL_PATH }}
+
+    - name: landingpage | update git repo
+      git: repo={{ LANDINGPAGE_GIT_REPO }}
+           version={{ LANDINGPAGE_GIT_VERSION }}
+           update=yes
+           dest={{ LANDINGPAGE_INSTALL_PATH }}
+           accept_hostkey=yes
+
+    ## nginx
+
+    - name: landingpage | disable old nginx config
+      file: path=/etc/nginx/sites-enabled/landingpage state=absent
+
+    - name: landingpage | stat nginx config
+      stat: path=/etc/nginx/sites-available/landingpage
+      register: landingpage_old_nginx_stat
+
+    - name: landingpage | move nginx config
+      command: mv /etc/nginx/sites-available/landingpage /etc/nginx/sites-available/{{ LANDINGPAGE_SERVICE_NAME }}
+      when: landingpage_old_nginx_stat.stat.exists
+
+    - name: landingpage | update nginx config
+      lineinfile: dest=/etc/nginx/sites-available/{{ LANDINGPAGE_SERVICE_NAME }} regexp="root" line="    root {{ LANDINGPAGE_INSTALL_PATH }};"
+
+    - name: landingpage | enable new nginx config
+      file:
+        src=/etc/nginx/sites-available/{{ LANDINGPAGE_SERVICE_NAME }}
+        dest=/etc/nginx/sites-enabled/{{ LANDINGPAGE_SERVICE_NAME }}
+        state=link
+
+    - name: landingpage | reload nginx
+      service: name=nginx state=restarted enabled=yes
