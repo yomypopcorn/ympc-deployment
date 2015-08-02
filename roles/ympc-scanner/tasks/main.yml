@@ -17,7 +17,7 @@
   delay: 2
 
 - name: deploy config file
-  template: src=config.j2 dest=/etc/yomypopcorn-scannerrc
+  template: src=config.j2 dest={{ SCANNER_CONFIG_PATH }}
 
 - name: deploy systemd unit
   template: src=systemd-unit.j2 dest=/etc/systemd/system/{{ SCANNER_SERVICE_NAME }}.service

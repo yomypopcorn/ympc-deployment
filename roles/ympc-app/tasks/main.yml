@@ -17,7 +17,7 @@
   delay: 2
 
 - name: deploy config file
-  template: src=config.j2 dest=/etc/yomypopcorn-servicerc
+  template: src=config.j2 dest={{ APP_CONFIG_PATH }}
 
 - name: deploy systemd unit
   template: src=systemd-unit.j2 dest=/etc/systemd/system/{{ APP_SERVICE_NAME }}.service
