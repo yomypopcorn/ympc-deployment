@@ -11,3 +11,4 @@ ansible-playbook -e YO_APIKEY='yo-api-key-blablab-labl-ablablablabl' full.yml
 
  - `full.yml`: Deploys the entire stack including tools
  - `apps.yml`: Deploys just the YOMYPOPCORN apps and their dependencies
+ - `migration-rename.yml`: Renames everything from old names to the new names.
