@@ -10,7 +10,7 @@
        accept_hostkey=yes
 
 - name: install dependencies
-  npm: path={{ SCANNER_INSTALL_PATH }} state=present
+  npm: path={{ SCANNER_INSTALL_PATH }} state=present production=yes
   register: npminstall
   until: npminstall|success
   retries: 5
