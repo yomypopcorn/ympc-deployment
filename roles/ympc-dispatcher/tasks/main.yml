@@ -1,0 +1,28 @@
+---
+- name: make sure install path exists
+  file: path={{ DISPATCHER_INSTALL_PATH }} state=directory
+
+- name: update git repo
+  git: repo={{ DISPATCHER_GIT_REPO }}
+       version={{ DISPATCHER_GIT_VERSION }}
+       update=yes
+       dest={{ DISPATCHER_INSTALL_PATH }}
+       accept_hostkey=yes
+
+- name: install dependencies
+  npm: path={{ DISPATCHER_INSTALL_PATH }} state=present production=yes
+  register: npminstall
+  until: npminstall|success
+  retries: 5
+  delay: 2
+
+- name: deploy config file
+  template: src=config.j2 dest={{ DISPATCHER_CONFIG_PATH }}
+
+- name: deploy systemd unit
+  template: src=systemd-unit.j2 dest=/etc/systemd/system/{{ DISPATCHER_SERVICE_NAME }}.service
+  notify:
+    - reload systemd
+
+- name: restart service
+  service: name={{ DISPATCHER_SERVICE_NAME }} state=restarted enabled=yes

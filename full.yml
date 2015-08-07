@@ -16,4 +16,5 @@
     - bistre
     - ympc-app
     - ympc-scanner
+    - ympc-dispatcher
     - ympc-landingpage

@@ -6,4 +6,5 @@
   roles:
     - ympc-app
     - ympc-scanner
+    - ympc-dispatcher
     - ympc-landingpage
