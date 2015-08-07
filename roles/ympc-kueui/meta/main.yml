@@ -3,3 +3,4 @@ dependencies:
   - { role: systemd }
   - { role: nodesource.node }
   - { role: redis }
+  - { role: ympc-user }

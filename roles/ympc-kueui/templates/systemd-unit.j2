@@ -4,3 +4,5 @@ Description=YOMYPOPCORN Kue UI
 [Service]
 Restart=always
 ExecStart={{ KUEUI_INSTALL_PATH }}/bin/cli.js --debug info
+User={{ YMPC_USER }}
+Group={{ YMPC_USER }}

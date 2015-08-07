@@ -4,3 +4,4 @@ dependencies:
   - { role: nodesource.node }
   - { role: redis }
   - { role: nginx }
+  - { role: ympc-user }
