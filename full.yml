@@ -8,6 +8,7 @@
       apt: update_cache=yes
   roles:
     - timezone
+    - { role: kamaln7.swapfile, swapfile_size: 1GB, swapfile_swappiness: 10 }
     - sshd
     - authorized-keys
     - htop
