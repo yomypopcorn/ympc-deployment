@@ -28,6 +28,13 @@ SCANNER_CONFIG_PATH: /etc/ympc-scannerrc
 SCANNER_GIT_REPO: https://github.com/yomypopcorn/ympc-scanner.git
 SCANNER_GIT_VERSION: master
 
+# dispatcher
+DISPATCHER_SERVICE_NAME: ympc-dispatcher
+DISPATCHER_INSTALL_PATH: "{{ BASE_INSTALL_PATH }}/ympc-dispatcher"
+DISPATCHER_CONFIG_PATH: /etc/ympc-dispatcherrc
+DISPATCHER_GIT_REPO: https://github.com/yomypopcorn/ympc-dispatcher.git
+DISPATCHER_GIT_VERSION: master
+
 # landingpage
 LANDINGPAGE_SERVICE_NAME: ympc-landingpage
 LANDINGPAGE_SERVER_NAME: yomypopcorn.com
