@@ -1,0 +1,28 @@
+---
+- name: make sure install path exists
+  file: path={{ KUEUI_INSTALL_PATH }} state=directory
+
+- name: update git repo
+  git: repo={{ KUEUI_GIT_REPO }}
+       version={{ KUEUI_GIT_VERSION }}
+       update=yes
+       dest={{ KUEUI_INSTALL_PATH }}
+       accept_hostkey=yes
+
+- name: install dependencies
+  npm: path={{ KUEUI_INSTALL_PATH }} state=present production=yes
+  register: npminstall
+  until: npminstall|success
+  retries: 5
+  delay: 2
+
+- name: deploy config file
+  template: src=config.j2 dest={{ KUEUI_CONFIG_PATH }}
+
+- name: deploy systemd unit
+  template: src=systemd-unit.j2 dest=/etc/systemd/system/{{ KUEUI_SERVICE_NAME }}.service
+  notify:
+    - reload systemd
+
+- name: restart service
+  service: name={{ KUEUI_SERVICE_NAME }} state=restarted enabled=yes

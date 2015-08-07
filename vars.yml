@@ -35,6 +35,15 @@ DISPATCHER_CONFIG_PATH: /etc/ympc-dispatcherrc
 DISPATCHER_GIT_REPO: https://github.com/yomypopcorn/ympc-dispatcher.git
 DISPATCHER_GIT_VERSION: master
 
+# kueui
+KUEUI_SERVICE_NAME: ympc-kueui
+KUEUI_PORT: 10042
+KUEUI_ADDRESS: localhost
+KUEUI_INSTALL_PATH: "{{ BASE_INSTALL_PATH }}/ympc-kueui"
+KUEUI_CONFIG_PATH: /etc/ympc-kueuirc
+KUEUI_GIT_REPO: https://github.com/yomypopcorn/ympc-kueui.git
+KUEUI_GIT_VERSION: master
+
 # landingpage
 LANDINGPAGE_SERVICE_NAME: ympc-landingpage
 LANDINGPAGE_SERVER_NAME: yomypopcorn.com
