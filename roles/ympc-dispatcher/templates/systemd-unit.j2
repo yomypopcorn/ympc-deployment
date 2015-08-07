@@ -1,7 +1,11 @@
 [Unit]
 Description=YOMYPOPCORN Dispatcher
+After=redis-server.service
 
 [Service]
 Environment="YO_APIKEY={{YO_APIKEY}}"
 Restart=always
 ExecStart={{ DISPATCHER_INSTALL_PATH }}/bin/cli.js --debug info
+
+[Install]
+WantedBy=multi-user.target

@@ -1,8 +1,12 @@
 [Unit]
 Description=YOMYPOPCORN API & App
+After=redis-server.service
 
 [Service]
 Environment="YO_PORT={{APP_PORT}}"
 Environment="YO_APIKEY={{YO_APIKEY}}"
 Restart=always
 ExecStart=/usr/bin/node {{ APP_INSTALL_PATH }}/server.js
+
+[Install]
+WantedBy=multi-user.target

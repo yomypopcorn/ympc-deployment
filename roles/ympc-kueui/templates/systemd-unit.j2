@@ -1,6 +1,10 @@
 [Unit]
 Description=YOMYPOPCORN Kue UI
+After=redis-server.service
 
 [Service]
 Restart=always
 ExecStart={{ KUEUI_INSTALL_PATH }}/bin/cli.js --debug info
+
+[Install]
+WantedBy=multi-user.target

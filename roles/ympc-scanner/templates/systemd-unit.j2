@@ -1,6 +1,10 @@
 [Unit]
 Description=YOMYPOPCORN Scanner
+After=redis-server.service
 
 [Service]
 Restart=always
 ExecStart={{ SCANNER_INSTALL_PATH }}/bin/cli.js --debug info
+
+[Install]
+WantedBy=multi-user.target
