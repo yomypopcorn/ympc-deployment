@@ -11,6 +11,9 @@ ADMINS:
 
 BASE_INSTALL_PATH: /root/yomypopcorn
 
+# eztv
+EZTV_API_URL: "https://odgoglfi7uddahby.onion.to"
+
 # app
 APP_SERVICE_NAME: ympc-app
 APP_SERVER_NAME: app.yomypopcorn.com
