@@ -4,8 +4,5 @@
   vars_files:
     - vars.yml
   roles:
-    - ympc-app
-    - ympc-scanner
-    - ympc-dispatcher
-    - ympc-kueui
+    - ympc-target
     - ympc-landingpage

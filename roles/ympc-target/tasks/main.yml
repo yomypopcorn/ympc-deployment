@@ -1,0 +1,10 @@
+- name: deploy systemd unit
+  template: src=systemd-target.j2 dest=/etc/systemd/system/ympc.target
+  notify:
+    - reload systemd
+
+- name: set default target ympc.target
+  command: systemctl set-default ympc.target
+
+- name: isolate ympc.target
+  command: systemctl isolate ympc.target

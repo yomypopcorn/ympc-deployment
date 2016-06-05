@@ -1,0 +1,10 @@
+---
+dependencies:
+  - { role: systemd }
+  - { role: nodesource.node }
+  - { role: redis }
+  - { role: nginx }
+  - { role: ympc-app }
+  - { role: ympc-scanner }
+  - { role: ympc-dispatcher }
+  - { role: ympc-kueui }

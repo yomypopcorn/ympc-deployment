@@ -1,0 +1,10 @@
+[Unit]
+Description=Default YMPC target
+Requires=multi-user.target
+After=multi-user.target
+Wants=nginx.service
+Wants={{ APP_SERVICE_NAME }}.service
+Wants={{ SCANNER_SERVICE_NAME }}.service
+Wants={{ DISPATCHER_SERVICE_NAME }}.service
+Wants={{ KUEUI_SERVICE_NAME }}.service
+AllowIsolate=yes
