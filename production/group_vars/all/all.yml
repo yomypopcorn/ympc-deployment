@@ -1,0 +1,26 @@
+---
+env_name: production
+
+ADMINS:
+  - manufaktor
+  - maxkueng
+  - manuelstofer
+  - teuteberg
+  - MathisB
+
+# app
+APP_SERVER_NAME: app.yomypopcorn.com
+APP_GIT_VERSION: master
+
+# scanner
+SCANNER_GIT_VERSION: master
+
+# dispatcher
+DISPATCHER_GIT_VERSION: master
+
+# kueui
+KUEUI_GIT_VERSION: master
+
+# landingpage
+LANDINGPAGE_SERVER_NAME: yomypopcorn.com
+LANDINGPAGE_GIT_VERSION: master

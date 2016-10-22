@@ -4,7 +4,11 @@ Deploy YOMYPOPCORN with Ansible
 ## Example
 
 ```sh
-ansible-playbook -e YO_APIKEY='yo-api-key-blablab-labl-ablablablabl' full.yml
+ansible-playbook -i production full.yml
+```
+
+```sh
+ansible-playbook -i staging full.yml
 ```
 
 ## Playbooks
