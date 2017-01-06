@@ -9,7 +9,9 @@ ADMINS:
   - teuteberg
   - MathisB
 
-BASE_INSTALL_PATH: /root/yomypopcorn
+YMPC_USER: ympc
+
+BASE_INSTALL_PATH: /opt/yomypopcorn
 
 # eztv
 EZTV_API_URL: "https://api-fetch.website/tv"

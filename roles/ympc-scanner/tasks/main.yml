@@ -16,6 +16,13 @@
   retries: 5
   delay: 2
 
+- name: update ownership
+  file:
+    path={{ SCANNER_INSTALL_PATH }}
+    owner={{ YMPC_USER }}
+    group={{ YMPC_USER }}
+    recurse=yes
+
 - name: deploy config file
   template: src=config.j2 dest={{ SCANNER_CONFIG_PATH }}
 

@@ -4,3 +4,5 @@ Description=YOMYPOPCORN Scanner
 [Service]
 Restart=always
 ExecStart={{ SCANNER_INSTALL_PATH }}/bin/cli.js --debug info
+User={{ YMPC_USER }}
+Group={{ YMPC_USER }}

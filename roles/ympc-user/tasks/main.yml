@@ -1,0 +1,9 @@
+---
+- name: create user
+  user:
+    state=present
+    name={{ YMPC_USER }}
+    comment="YOMYPOPCORN apps"
+    system=yes
+    home={{ BASE_INSTALL_PATH }}
+    shell=/bin/false

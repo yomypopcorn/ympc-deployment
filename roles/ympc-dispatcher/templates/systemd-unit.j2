@@ -7,3 +7,5 @@ Restart=always
 WatchdogSec=14400
 Environment="YO_APIKEY={{YO_APIKEY}}"
 ExecStart={{ DISPATCHER_INSTALL_PATH }}/bin/cli.js --debug info
+User={{ YMPC_USER }}
+Group={{ YMPC_USER }}

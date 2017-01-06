@@ -6,3 +6,5 @@ Environment="YO_PORT={{APP_PORT}}"
 Environment="YO_APIKEY={{YO_APIKEY}}"
 Restart=always
 ExecStart=/usr/bin/node {{ APP_INSTALL_PATH }}/server.js
+User={{ YMPC_USER }}
+Group={{ YMPC_USER }}
